@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Ultimate Tic-Tac-Toe | VOSC Activity 1</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body data-theme="neon">
+
+    <div id="confetti"></div>
+
+    <div class="app">
+
+        <!-- HEADER -->
+        <header class="topbar">
+
+            <div class="brand">
+                <div class="brand-icon">✦</div>
+
+                <div>
+                    <div class="brand-small">
+                        VOSC ACTIVITY 1
+                    </div>
+
+                    <h1>Tic-Tac-Toe</h1>
+
+                    <p class="brand-subtitle">
+                        Ultimate Edition
+                    </p>
+                </div>
+            </div>
+
+            <div class="top-actions">
+
+                <button
+                    id="soundBtn"
+                    class="icon-btn"
+                    title="Toggle sound">
+                    🔊
+                </button>
+
+                <button
+                    id="themeCycleBtn"
+                    class="icon-btn"
+                    title="Change theme">
+                    🎨
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <!-- GAME SETTINGS -->
+        <section class="settings-panel">
+
+            <div class="setting-group mode-setting">
+
+                <label>GAME MODE</label>
+
+                <div class="segmented">
+
+                    <button
+                        class="mode-btn active"
+                        data-mode="ai">
+                        🤖 VS AI
+                    </button>
+
+                    <button
+                        class="mode-btn"
+                        data-mode="pvp">
+                        👥 2 PLAYERS
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="setting-group"
+                id="difficultyGroup">
+
+                <label>AI LEVEL</label>
+
+                <select id="difficulty">
+
+                    <option value="easy">
+                        Easy
+                    </option>
+
+                    <option value="medium">
+                        Medium
+                    </option>
+
+                    <option value="hard" selected>
+                        Hard
+                    </option>
+
+                    <option value="impossible">
+                        Impossible
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="setting-group">
+
+                <label>THEME</label>
+
+                <select id="themeSelect">
+
+                    <option value="neon">
+                        Neon
+                    </option>
+
+                    <option value="ocean">
+                        Ocean
+                    </option>
+
+                    <option value="sunset">
+                        Sunset
+                    </option>
+
+                    <option value="emerald">
+                        Emerald
+                    </option>
+
+                </select>
+
+            </div>
+
+        </section>
+
+
+        <!-- SCOREBOARD -->
+        <section class="scoreboard">
+
+            <div class="score-card x-card">
+
+                <div class="player-symbol x-symbol">
+                    X
+                </div>
+
+                <div class="score-info">
+
+                    <span id="playerOneName">
+                        YOU
+                    </span>
+
+                    <strong id="xScore">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="vs-box">
+
+                <span>VS</span>
+
+                <small id="roundText">
+                    ROUND 1
+                </small>
+
+            </div>
+
+
+            <div class="score-card o-card">
+
+                <div class="player-symbol o-symbol">
+                    O
+                </div>
+
+                <div class="score-info">
+
+                    <span id="playerTwoName">
+                        AI
+                    </span>
+
+                    <strong id="oScore">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- TURN -->
+        <section class="turn-section">
+
+            <span class="turn-label">
+                CURRENT TURN
+            </span>
+
+            <h2 id="turnText">
+                Your turn
+            </h2>
+
+            <div
+                id="thinking"
+                class="thinking hidden">
+
+                <span class="loader-dot"></span>
+                AI is calculating
+                <span class="loader-dots">•••</span>
+
+            </div>
+
+        </section>
+
+
+        <!-- BOARD -->
+        <main>
+
+            <div
+                id="board"
+                class="board"
+                aria-label="Tic-Tac-Toe board">
+
+                <button
+                    class="cell"
+                    data-index="0"
+                    aria-label="Top left">
+                </button>
+
+                <button
+                    class="cell"
+                    data-index="1"
+                    aria-label="Top center">
+                </button>
+
+                <button
+                    class="cell"
+                    data-index="2"
+                    aria-label="Top right">
+                </button>
+
+                <button
+                    class="cell"
+                    data-index="3"
+                    aria-label="Middle left">
+                </button>
+
+                <button
+                    class="cell"
+                    data-index="4"
+                    aria-label="Center">
+                </button>
+
+                <button
+                    class="cell"
+                    data-index="5"
+                    aria-label="Middle right">
+                </button>
+
+                <button
+                    class="cell"
+                    data-index="6"
+                    aria-label="Bottom left">
+                </button>
+
+                <button
+                    class="cell"
+                    data-index="7"
+                    aria-label="Bottom center">
+                </button>
+
+                <button
+                    class="cell"
+                    data-index="8"
+                    aria-label="Bottom right">
+                </button>
+
+            </div>
+
+        </main>
+
+
+        <!-- ANALYSIS -->
+        <section class="analysis-card">
+
+            <div class="analysis-heading">
+
+                <div>
+                    <span class="section-kicker">
+                        POSITION ANALYSIS
+                    </span>
+
+                    <h3 id="analysisTitle">
+                        Balanced position
+                    </h3>
+                </div>
+
+                <div
+                    id="positionEmoji"
+                    class="analysis-emoji">
+                    🎯
+                </div>
+
+            </div>
+
+
+            <div class="probability-area">
+
+                <div class="probability-header">
+
+                    <span>
+                        Win Probability
+                    </span>
+
+                    <strong id="probabilityValue">
+                        50%
+                    </strong>
+
+                </div>
+
+                <div class="progress">
+
+                    <div
+                        id="probabilityBar"
+                        class="progress-bar">
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="analysis-grid">
+
+                <div class="analysis-item">
+
+                    <span>
+                        POSITION
+                    </span>
+
+                    <strong id="positionStatus">
+                        Balanced
+                    </strong>
+
+                </div>
+
+
+                <div class="analysis-item">
+
+                    <span>
+                        BEST MOVE
+                    </span>
+
+                    <strong id="bestMove">
+                        Center
+                    </strong>
+
+                </div>
+
+
+                <div class="analysis-item">
+
+                    <span>
+                        MOVES
+                    </span>
+
+                    <strong id="movesCount">
+                        0 / 9
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- CONTROLS -->
+        <section class="controls">
+
+            <button
+                id="undoBtn"
+                class="control-btn secondary">
+                ↩ Undo
+            </button>
+
+            <button
+                id="newRoundBtn"
+                class="control-btn primary">
+                ✦ New Round
+            </button>
+
+            <button
+                id="resetBtn"
+                class="control-btn secondary">
+                ⟳ Reset
+            </button>
+
+        </section>
+
+
+        <!-- STATISTICS -->
+        <section class="stats">
+
+            <div class="stat">
+
+                <span>WINS</span>
+
+                <strong id="wins">
+                    0
+                </strong>
+
+            </div>
+
+            <div class="stat">
+
+                <span>LOSSES</span>
+
+                <strong id="losses">
+                    0
+                </strong>
+
+            </div>
+
+            <div class="stat">
+
+                <span>DRAWS</span>
+
+                <strong id="draws">
+                    0
+                </strong>
+
+            </div>
+
+            <div class="stat">
+
+                <span>WIN RATE</span>
+
+                <strong id="winRate">
+                    0%
+                </strong>
+
+            </div>
+
+        </section>
+
+
+        <!-- FOOTER -->
+        <footer>
+
+            <span>HTML</span>
+            <b>•</b>
+            <span>CSS</span>
+            <b>•</b>
+            <span>JavaScript</span>
+
+            <small>
+                VOSC Activity 1
+            </small>
+
+        </footer>
+
+    </div>
+
+
+    <!-- RESULT MODAL -->
+    <div
+        id="resultModal"
+        class="modal hidden">
+
+        <div class="modal-card">
+
+            <div
+                id="resultIcon"
+                class="result-icon">
+                🏆
+            </div>
+
+            <span class="result-kicker">
+                ROUND COMPLETE
+            </span>
+
+            <h2 id="resultTitle">
+                You Win!
+            </h2>
+
+            <p id="resultMessage">
+                Brilliant move!
+            </p>
+
+            <button
+                id="modalNewRound"
+                class="modal-btn">
+                Play Again →
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
